@@ -26,9 +26,9 @@ bus.write_i2c_block_data(address, 0x1C, [0x08])
 # 生データを取得する
 while True:
     data    = bus.read_i2c_block_data(address, 0x3B ,6)
-    rawX    = (8.0 / float(0x8000)) * u2s(data[0] << 8 | data[1])
-    rawY    = (8.0 / float(0x8000)) * u2s(data[2] << 8 | data[3])
-    rawZ    = (8.0 / float(0x8000)) * u2s(data[4] << 8 | data[5])
+    rawX    = (4.0 / float(0x8000)) * u2s(data[0] << 8 | data[1])
+    rawY    = (4.0 / float(0x8000)) * u2s(data[2] << 8 | data[3])
+    rawZ    = (4.0 / float(0x8000)) * u2s(data[4] << 8 | data[5])
     print "%+8.7f" % rawX + "   ",
     print "%+8.7f" % rawY + "   ",
     print "%+8.7f" % rawZ
