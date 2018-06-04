@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import smbus
 import time
-
+1channel = 2
 address = 0x68
 bus     = smbus.SMBus(channel)
 
