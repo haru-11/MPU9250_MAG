@@ -333,24 +333,3 @@ if __name__ == "__main__":
     sensor.setMagRegister('100Hz','16bit')
     # sensor.selfTestMag()
 
-    while True:
-        now     = time.time()
-        acc     = sensor.getAccel()
-        gyr     = sensor.getGyro()
-        mag     = sensor.getMag()
-        print "%+8.7f" % acc[0] + " ",
-        print "%+8.7f" % acc[1] + " ",
-        print "%+8.7f" % acc[2] + " ",
-        print " |   ",
-        print "%+8.7f" % gyr[0] + " ",
-        print "%+8.7f" % gyr[1] + " ",
-        print "%+8.7f" % gyr[2] + " ",
-        print " |   ",
-        print "%+8.7f" % mag[0] + " ",
-        print "%+8.7f" % mag[1] + " ",
-        print "%+8.7f" % mag[2]
-
-        sleepTime       = 0.1 - (time.time() - now)
-        if sleepTime < 0.0:
-            continue
-        time.sleep(sleepTime)
