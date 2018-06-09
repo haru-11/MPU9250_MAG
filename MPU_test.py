@@ -1,35 +1,24 @@
-#!/usr/bin/python -u
-# -*- coding: utf-8 -*-
-import smbus
-import time
-channel = 1
-address = 0x68
-bus     = smbus.SMBus(channel)
+import mpu9250_1
 
-#unsignedを、signedに変換(16ビット限定）
-def u2s(unsigneddata):
-    if unsigneddata & (0x01 << 15) : 
-        return -1 * ((unsigneddata ^ 0xffff) + 1)
-    return unsigneddata
+mpu = mpu9250_1()
 
-# レジスタをリセットする
-bus.write_i2c_block_data(address, 0x6B, [0x80])
-time.sleep(0.1)     
-
-# PWR_MGMT_1をクリア
-bus.write_i2c_block_data(address, 0x6B, [0x00])
-time.sleep(0.1)
-
-# 加速度センサのレンジを±8gにする
-bus.write_i2c_block_data(address, 0x1C, [0x08])
-
-# 生データを取得する
 while True:
-    data    = bus.read_i2c_block_data(address, 0x3B ,6)
-    rawX    = (4.0 / float(0x8000)) * u2s(data[0] << 8 | data[1])
-    rawY    = (4.0 / float(0x8000)) * u2s(data[2] << 8 | data[3])
-    rawZ    = (4.0 / float(0x8000)) * u2s(data[4] << 8 | data[5])
-    print "%+8.7f" % rawX + "   ",
-    print "%+8.7f" % rawY + "   ",
-    print "%+8.7f" % rawZ
-    time.sleep(1)
+    now     = mpu.time.time()
+    acc     = mpu.sensor.getAccel()
+    gyr     = mpu.sensor.getGyro()
+    mag     = mpu.sensor.getMag()
+    print "%+8.7f" % acc[0] + " ",
+    print "%+8.7f" % acc[1] + " ",
+    print "%+8.7f" % acc[2] + " ",
+    print " |   ",
+    print "%+8.7f" % gyr[0] + " ",
+    print "%+8.7f" % gyr[1] + " ",
+    print "%+8.7f" % gyr[2] + " ",
+    print " |   ",
+    print "%+8.7f" % mag[0] + " ",
+    print "%+8.7f" % mag[1] + " ",
+    print "%+8.7f" % mag[2]
+    sleepTime       = 0.1 - (time.time() - now)
+    if sleepTime < 0.0:
+        continue
+    time.sleep(sleepTime)
