@@ -324,12 +324,3 @@ class SL_MPU9250:
         return self.offsetGyroX, self.offsetGyroY, self.offsetGyroZ
 
 
-if __name__ == "__main__":
-    sensor  = SL_MPU9250(0x68,1)
-    sensor.resetRegister()
-    sensor.powerWakeUp()
-    sensor.setAccelRange(8,True)
-    sensor.setGyroRange(1000,True)
-    sensor.setMagRegister('100Hz','16bit')
-    # sensor.selfTestMag()
-
