@@ -293,7 +293,7 @@ class SL_MPU9250:
         # 平均値をオフセットにする
         self.offsetAccelX   = -1.0 * _sum[0] / _count
         self.offsetAccelY   = -1.0 * _sum[1] / _count
-        self.offsetAccelZ   = -1.0 * ((_sum[2] / _count ) - 1.0)    # 重力分を差し引く
+        self.offsetAccelZ   = -1.0 * _sum[2] / _count     # 重力分を差し引かない
 
         # オフセット値をレジスタに登録したいけれど、動作がわからないので実装保留
 
