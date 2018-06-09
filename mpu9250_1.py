@@ -291,12 +291,17 @@ class SL_MPU9250:
             _sum[2] += _data[2]
 
         # 平均値をオフセットにする
-        self.offsetAccelX   = -1.0 * _sum[0] / _count
-        self.offsetAccelY   = -1.0 * _sum[1] / _count
-        self.offsetAccelZ   = -1.0 * _sum[2] / _count     # 重力分を差し引かない
+        #self.offsetAccelX   = -1.0 * _sum[0] / _count
+        #self.offsetAccelY   = -1.0 * _sum[1] / _count
+	#self.offsetAccelZ   =( -1.0 * _sum[2] / _count)-1.0     # 重力分を差し引かない
+	#print self.offsetAccelX
+	#print self.offsetAccelY
+	#print self.offsetAccelZ
+	self.offsetAccelX  = -0.018942626
+	self.offsetAccelY  = -0.009859863
+	self.offsetAccelX  = -0.000404052 #2018/06/10 @自宅床のオフセット値
 
         # オフセット値をレジスタに登録したいけれど、動作がわからないので実装保留
-
         print "Accel calibration complete"
         return self.offsetAccelX, self.offsetAccelY, self.offsetAccelZ
 
