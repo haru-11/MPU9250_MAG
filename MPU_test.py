@@ -2,6 +2,7 @@ import mpu9250_1
 import time
 import threading
 import numpy as np
+import math
 
 mpu = mpu9250_1.SL_MPU9250(0x68,1)
 
@@ -78,4 +79,8 @@ while True:
 	#print "%+8.7f" % mag[0] + " ",
 	#print "%+8.7f" % mag[1] + " ",
 	#print "%+8.7f" % mag[2]
+	x_angle = math.degrees( math.atan2( acc[0], math.sqrt(acc[1] ** 2 + acc[2] ** 2 )))
+	y_angle = math.degrees( math.atan2( acc[1], math.sqrt(acc[0] ** 2 + acc[2] ** 2 )))
+	print("X Angle:", x_angle, "Y Angle", y_angle)
+	
 	time.sleep(0.5)
