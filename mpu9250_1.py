@@ -246,9 +246,9 @@ class SL_MPU9250:
 
         # μTへの変換
         if self.MAG_BIT==16:    # 16bit出力の時
-            rawX    = rawX * self.magCoefficient16
-            rawY    = rawY * self.magCoefficient16
-            rawZ    = rawZ * self.magCoefficient16
+            rawX    = rawX * self.magCoefficient16 -23.91526
+            rawY    = rawY * self.magCoefficient16 - 27.28889
+            rawZ    = rawZ * self.magCoefficient16 + 23.69035
         else:                   # 14bit出力の時
             rawX    = rawX * self.magCoefficient14
             rawY    = rawY * self.magCoefficient14
